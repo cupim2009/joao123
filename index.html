@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quiz: Inteligência Artificial</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="cabecalho">
+      <span class="etiqueta">TECNOLOGIA E SOCIEDADE</span>
+      <h1>Inteligência Artificial</h1>
+      <p>
+        Descubra como você reage às novas tecnologias.
+      </p>
+    </header>
+
+    <section class="quiz-card" id="quiz">
+      <div class="progresso">
+        <span id="numero-pergunta">Pergunta 1</span>
+        <span id="porcentagem">100%</span>
+      </div>
+
+      <div class="barra">
+        <div id="barra-progresso"></div>
+      </div>
+
+      <h2 id="enunciado"></h2>
+
+      <div id="alternativas" class="alternativas"></div>
+
+      <div id="resultado" class="resultado" hidden></div>
+
+      <button id="botao-continuar" class="botao" hidden>
+        Continuar
+      </button>
+    </section>
+
+    <footer>
+      <p>Um projeto para refletir sobre o futuro da tecnologia.</p>
+    </footer>
+  </main>
+</body>
+</html>
