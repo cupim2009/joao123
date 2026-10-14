@@ -5,45 +5,505 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quiz: Inteligência Artificial</title>
+  <title>Descubra sua relação com a IA</title>
 
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #101124;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .cabecalho {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      color: #b8a8ff;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      margin: 16px 0;
+    }
+
+    .cabecalho p {
+      color: #b6b7ce;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: #1b1c35;
+      border: 1px solid #333451;
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 15px 50px #00000030;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #b6b7ce;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .progresso {
+      width: 100%;
+      height: 7px;
+      background: #343550;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .progresso div {
+      height: 100%;
+      width: 0%;
+      background: #a997ff;
+      transition: width 0.3s;
+    }
+
+    h2 {
+      font-size: 23px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .alternativas {
+      display: grid;
+      gap: 14px;
+    }
+
+    .alternativa {
+      background: #242641;
+      color: white;
+      border: 1px solid #414361;
+      border-radius: 14px;
+      padding: 19px;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.2s;
+      line-height: 1.5;
+    }
+
+    .alternativa:hover:not(:disabled) {
+      border-color: #a997ff;
+      background: #302d51;
+      transform: translateY(-2px);
+    }
+
+    .alternativa.selecionada {
+      background: #353052;
+      border-color: #b8a8ff;
+    }
+
+    .alternativa:disabled {
+      cursor: default;
+      opacity: 0.85;
+    }
+
+    .feedback {
+      background: #252744;
+      border: 1px solid #414361;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 22px;
+      line-height: 1.7;
+    }
+
+    .feedback h3 {
+      color: #c0b3ff;
+      margin-bottom: 10px;
+    }
+
+    .feedback ul {
+      padding-left: 22px;
+    }
+
+    .feedback li {
+      margin: 8px 0;
+    }
+
+    .botao {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      background: #a997ff;
+      color: #17132b;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 22px;
+      transition: 0.2s;
+    }
+
+    .botao:hover {
+      background: #c0b3ff;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    .inicio {
+      text-align: center;
+    }
+
+    .icone {
+      font-size: 52px;
+      margin-bottom: 16px;
+    }
+
+    .inicio p,
+    .final p {
+      color: #c0c1d7;
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    .rodape {
+      color: #8587a7;
+      text-align: center;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 22px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .alternativa {
+        padding: 16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <main class="container">
+
     <header class="cabecalho">
-      <span class="etiqueta">TECNOLOGIA E SOCIEDADE</span>
-      <h1>Inteligência Artificial</h1>
+      <span class="tag">TECNOLOGIA • FUTURO • SOCIEDADE</span>
+      <h1>Sua relação com a IA</h1>
       <p>
-        Descubra como você reage às novas tecnologias.
+        Como você reage às novas tecnologias?
+        Responda às perguntas e descubra!
       </p>
     </header>
 
-    <section class="quiz-card" id="quiz">
-      <div class="progresso">
-        <span id="numero-pergunta">Pergunta 1</span>
-        <span id="porcentagem">100%</span>
+    <section class="card">
+
+      <!-- Tela inicial -->
+      <div id="tela-inicial" class="inicio">
+        <div class="icone">🤖</div>
+
+        <h2>Vamos começar?</h2>
+
+        <p>
+          Imagine situações envolvendo a inteligência artificial
+          e escolha a alternativa que melhor representa você.
+        </p>
+
+        <button class="botao" id="comecar">
+          Começar o quiz
+        </button>
       </div>
 
-      <div class="barra">
-        <div id="barra-progresso"></div>
+      <!-- Tela das perguntas -->
+      <div id="tela-quiz" class="oculto">
+
+        <div class="info">
+          <span id="numero-pergunta"></span>
+          <span id="porcentagem"></span>
+        </div>
+
+        <div class="progresso">
+          <div id="barra-progresso"></div>
+        </div>
+
+        <h2 id="enunciado"></h2>
+
+        <div id="alternativas" class="alternativas"></div>
+
+        <div id="feedback" class="feedback oculto"
+             aria-live="polite"></div>
+
+        <button id="continuar" class="botao oculto">
+          Próxima pergunta
+        </button>
       </div>
 
-      <h2 id="enunciado"></h2>
+      <!-- Tela final -->
+      <div id="tela-final" class="final oculto">
+        <div class="icone">✨</div>
 
-      <div id="alternativas" class="alternativas"></div>
+        <h2>Você concluiu o quiz!</h2>
 
-      <div id="resultado" class="resultado" hidden></div>
+        <p id="mensagem-final"></p>
 
-      <button id="botao-continuar" class="botao" hidden>
-        Continuar
-      </button>
+        <button id="reiniciar" class="botao">
+          Refazer quiz
+        </button>
+      </div>
+
     </section>
 
-    <footer>
-      <p>Um projeto para refletir sobre o futuro da tecnologia.</p>
+    <footer class="rodape">
+      Um convite para refletir sobre a inteligência artificial.
     </footer>
+
   </main>
+
+  <script>
+    const perguntas = [
+      {
+        enunciado:
+          "Assim que saiu da escola você se depara com uma nova tecnologia, um chat que consegue responder todas as dúvidas que uma pessoa pode ter. Ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?",
+
+        alternativas: [
+          {
+            texto: "😨 Isso é assustador!",
+            afirmacao: [
+              "No início, ficou com medo do que essa tecnologia pode fazer.",
+              "Achou assustador pensar na velocidade com que a tecnologia está avançando."
+            ]
+          },
+          {
+            texto: "🤩 Isso é maravilhoso!",
+            afirmacao: [
+              "Quis saber como usar IA no seu dia a dia.",
+              "Foi atrás de vídeos, artigos e mais informações sobre como utilizar essa tecnologia."
+            ]
+          }
+        ]
+      },
+
+      {
+        enunciado:
+          "Você descobre que a inteligência artificial pode ajudar nos estudos e realizar tarefas em poucos segundos. O que faria?",
+
+        alternativas: [
+          {
+            texto: "🔍 Pesquisaria os riscos antes de usar.",
+            afirmacao: [
+              "Prefere compreender os limites da tecnologia antes de confiar nela.",
+              "Valoriza a segurança e a verificação das informações."
+            ]
+          },
+          {
+            texto: "🚀 Começaria a experimentar!",
+            afirmacao: [
+              "Gosta de aprender na prática e explorar novas ferramentas.",
+              "Enxerga oportunidades para tornar as tarefas mais criativas e produtivas."
+            ]
+          }
+        ]
+      },
+
+      {
+        enunciado:
+          "Uma inteligência artificial cria uma imagem tão realista que você não consegue distinguir se é verdadeira. Qual seria sua reação?",
+
+        alternativas: [
+          {
+            texto: "🧐 Ficaria desconfiado e verificaria a fonte.",
+            afirmacao: [
+              "Entende que conteúdos digitais podem ser manipulados.",
+              "Considera importante verificar a origem das imagens antes de compartilhá-las."
+            ]
+          },
+          {
+            texto: "🎨 Ficaria impressionado com a criatividade.",
+            afirmacao: [
+              "Ficaria curioso para entender como a imagem foi criada.",
+              "Gostaria de experimentar a criação de conteúdos com inteligência artificial."
+            ]
+          }
+        ]
+      }
+    ];
+
+    let perguntaAtual = 0;
+    let respostas = [];
+
+    const telaInicial = document.getElementById("tela-inicial");
+    const telaQuiz = document.getElementById("tela-quiz");
+    const telaFinal = document.getElementById("tela-final");
+
+    const enunciado = document.getElementById("enunciado");
+    const alternativas = document.getElementById("alternativas");
+    const feedback = document.getElementById("feedback");
+    const continuar = document.getElementById("continuar");
+
+    function comecarQuiz() {
+      perguntaAtual = 0;
+      respostas = [];
+
+      telaInicial.classList.add("oculto");
+      telaFinal.classList.add("oculto");
+      telaQuiz.classList.remove("oculto");
+
+      mostrarPergunta();
+    }
+
+    function mostrarPergunta() {
+      const pergunta = perguntas[perguntaAtual];
+
+      enunciado.textContent = pergunta.enunciado;
+
+      document.getElementById("numero-pergunta").textContent =
+        `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
+
+      const progresso =
+        (perguntaAtual / perguntas.length) * 100;
+
+      document.getElementById("porcentagem").textContent =
+        `${Math.round(progresso)}%`;
+
+      document.getElementById("barra-progresso").style.width =
+        `${progresso}%`;
+
+      alternativas.innerHTML = "";
+      feedback.innerHTML = "";
+      feedback.classList.add("oculto");
+      continuar.classList.add("oculto");
+
+      pergunta.alternativas.forEach((alternativa, indice) => {
+        const botao = document.createElement("button");
+
+        botao.className = "alternativa";
+        botao.textContent = alternativa.texto;
+        botao.type = "button";
+
+        botao.addEventListener("click", () => {
+          selecionarResposta(indice);
+        });
+
+        alternativas.appendChild(botao);
+      });
+    }
+
+    function selecionarResposta(indice) {
+      const pergunta = perguntas[perguntaAtual];
+      const botoes = alternativas.querySelectorAll("button");
+
+      // Impede a seleção de mais de uma resposta.
+      if (botoes[0].disabled) return;
+
+      respostas[perguntaAtual] = indice;
+
+      botoes.forEach((botao, i) => {
+        botao.disabled = true;
+
+        if (i === indice) {
+          botao.classList.add("selecionada");
+        }
+      });
+
+      const escolhida = pergunta.alternativas[indice];
+
+      const titulo = document.createElement("h3");
+      titulo.textContent = "Sua resposta";
+
+      const lista = document.createElement("ul");
+
+      escolhida.afirmacao.forEach((frase) => {
+        const item = document.createElement("li");
+        item.textContent = frase;
+        lista.appendChild(item);
+      });
+
+      feedback.innerHTML = "";
+      feedback.append(titulo, lista);
+      feedback.classList.remove("oculto");
+
+      continuar.textContent =
+        perguntaAtual === perguntas.length - 1
+          ? "Ver resultado"
+          : "Próxima pergunta";
+
+      continuar.classList.remove("oculto");
+    }
+
+    function proximaPergunta() {
+      if (perguntaAtual < perguntas.length - 1) {
+        perguntaAtual++;
+        mostrarPergunta();
+      } else {
+        mostrarResultado();
+      }
+    }
+
+    function mostrarResultado() {
+      telaQuiz.classList.add("oculto");
+      telaFinal.classList.remove("oculto");
+
+      document.getElementById("porcentagem").textContent = "100%";
+      document.getElementById("barra-progresso").style.width = "100%";
+
+      const curiosas = respostas.filter((resposta) => resposta === 1).length;
+      const cautelosas = respostas.length - curiosas;
+
+      let mensagem;
+
+      if (curiosas > cautelosas) {
+        mensagem =
+          "Você demonstrou uma postura curiosa e aberta às possibilidades da inteligência artificial. Explorar novas ferramentas pode ser uma oportunidade de aprender, criar e descobrir novas soluções. Lembre-se de utilizar a tecnologia de maneira crítica e responsável.";
+      } else if (cautelosas > curiosas) {
+        mensagem =
+          "Você demonstrou uma postura mais cautelosa diante da inteligência artificial. Refletir sobre os riscos, conferir informações e entender os limites da tecnologia são atitudes importantes para fazer escolhas conscientes.";
+      } else {
+        mensagem =
+          "Você demonstrou uma combinação de curiosidade e cautela diante da inteligência artificial. Explorar novas possibilidades e, ao mesmo tempo, avaliar os riscos pode ajudar a aproveitar a tecnologia com responsabilidade.";
+      }
+
+      document.getElementById("mensagem-final").textContent = mensagem;
+    }
+
+    function reiniciarQuiz() {
+      telaFinal.classList.add("oculto");
+      telaInicial.classList.remove("oculto");
+      telaQuiz.classList.add("oculto");
+
+      document.getElementById("barra-progresso").style.width = "0%";
+    }
+
+    document.getElementById("comecar")
+      .addEventListener("click", comecarQuiz);
+
+    continuar.addEventListener("click", proximaPergunta);
+
+    document.getElementById("reiniciar")
+      .addEventListener("click", reiniciarQuiz);
+  </script>
 </body>
 </html>
